@@ -1,5 +1,5 @@
 locals {
-  ecr_repo_name = var.use_namespaces ? "${var.namespace}-${var.name}" : var.name
+  ecr_repo_name = var.name
 }
 
 # aws_ecr_repository creates the aws_ecr_repository resource

@@ -1,5 +1,4 @@
-# AWS ECR Module  [![Build Status](https://travis-ci.org/doingcloudright/terraform-aws-ecr-cross-account.svg?branch=master)](https://travis-ci.org/doingcloudright/terraform-aws-ecr-cross-account)
-
+# AWS ECR Module for Cross Account Sharing
 
 This module simplifies the creation of an ECR Bucket which serves different AWS Accounts and different stages of development. The lifecycle policy rules can be passed as list of strings inside lifecycle_policy_rules. For generation of lifecycle policy rules please check out <a href="https://registry.terraform.io/modules/doingcloudright/ecr-lifecycle-policy-rule/aws/">doingcloudright/ecr-lifecycle-policy-rule/aws</a>.
 
@@ -46,47 +45,12 @@ module "ecr_lifecycle_rule_untagged_100_days_since_image_pushed" {
   count_number = "100"
 }
 
-module "ecr_repo_with_namespaces" {
-    source                      = "doingcloudright/ecr-cross-account/aws"
+### Repo will be named repo
+```
+module "ecr_repo" {
+    source                      = "doingcloudright/ecr-cross-account/aws" #to be updated
     version                     = "1.0.0"
 
-    namespace                   = "dcr"
-    name                        = "repo"
-
-    allowed_read_principals     = ["arn:aws:iam::1234567890:root"]
-    allowed_write_principals    = ["arn:aws:iam::1234567890:user/ecs-deploy"]
-
-    lifecycle_policy_rules    = ["${module.ecr_lifecycle_rule_tagged_image_count_30.policy_rule}","${module.ecr_lifecycle_rule_untagged_100_days_since_image_pushed.policy_rule}" ]
-    lifecycle_policy_rules_count = 2
-}
-```
-
-
-### Repo using namespaces by default, will be named dcr-repo
-```
-module "ecr_repo_with_namespaces" {
-    source                      = "doingcloudright/ecr-cross-account/aws"
-    version                     = "1.0.0"
-
-    namespace                   = "dcr"
-    name                        = "repo"
-
-    allowed_read_principals     = ["arn:aws:iam::1234567890:root"]
-    allowed_write_principals    = ["arn:aws:iam::1234567890:user/ecs-deploy"]
-
-    # lifecycle_policy_rules    = []
-    # lifecycle_policy_rules_count = 0
-}
-```
-
-### Repo will be named repo with use_namespaces is set to false
-```
-module "ecr_repo_no_namespaces" {
-    source                      = "doingcloudright/ecr-cross-account/aws"
-    version                     = "1.0.0"
-
-    namespace                   = "dcr"
-    use_namespaces		= false
     name                        = "repo"
 
     allowed_read_principals     = ["arn:aws:iam::1234567890:root"]

@@ -1,14 +1,5 @@
-variable "namespace" {
-  description = "The namespace we interpolate in all resources"
-}
-
 variable "create" {
   description = "create defines if resources need to be created true/false"
-  default     = true
-}
-
-variable "use_namespaces" {
-  description = "use_namespaces defines if we want to interpolate the namespace inside the repo name"
   default     = true
 }
 
