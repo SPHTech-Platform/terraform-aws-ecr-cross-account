@@ -31,7 +31,7 @@ variable "lifecycle_policy_rules" {
 
 variable "image_tag_mutability" {
   description = "The tag mutability setting for the repository. Must be one of: MUTABLE or IMMUTABLE."
-  default     = "MUTABLE"
+  default     = "IMMUTABLE"
 }
 
 variable "scan_on_pushing" {
